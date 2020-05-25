@@ -4,6 +4,7 @@ from time import sleep
 # data
 COLS = 20
 ROWS = 4
+VFD_SLEEPTIME = 0.005
 
 # commands
 VFD_CLEARDISPLAY = 0x01
@@ -76,11 +77,11 @@ class VFD:
 
     def home(self):
         self.command(VFD_RETURNHOME)
-        sleep(0.005)
+        sleep(VFD_SLEEPTIME)
 
     def clear(self):
         self.command(VFD_CLEARDISPLAY)
-        sleep(0.005)
+        sleep(VFD_SLEEPTIME)
 
     def setCursor(self, col, row):
         _numlines = ROWS
@@ -88,24 +89,34 @@ class VFD:
         if row > _numlines:
             row = _numlines-1        # count rows starting with 0
         self.command(VFD_SETDDRAMADDR | (col + row_offsets[row]) )
-        sleep(0.005)
+        sleep(VFD_SLEEPTIME)
 
-    def setDirection(self, leftToRight, autoScroll):
-        cmd = 4
-        if leftToRight:
-            cmd = cmd | 2
-        if autoScroll:
-            cmd = cmd | 1
+    def display(self, _displaycontrol): 
+        _displaycontrol |=  self.VFD_DISPLAYON 
+        self.command(VFD_DISPLAYCONTROL | _displaycontrol) 
 
-        self.command(cmd)
+    def blink_on(self):
+        _displaycontrol =  VFD_DISPLAYON | VFD_CURSORON | VFD_BLINKON
+        self.display(_displaycontrol)
 
-    def setDisplay(self, display, cursor, blink):
-        cmd = 8
-        if display:
-            cmd = cmd | 4
-        if cursor:
-            cmd = cmd | 2
-        if blink:
-            cmd = cmd | 1
+    def blink_off(self):
+        _displaycontrol = VFD_DISPLAYON | VFD_CURSOROFF | VFD_BLINKOFF
+        self.display(_displaycontrol)
 
-        self.command(cmd)
+    #These commands scroll the display without changing the RAM
+    def scrollDisplayLeft(self):
+        self.command(VFD_CURSORSHIFT | VFD_DISPLAYMOVE | VFD_MOVELEFT)
+
+    def scrollDisplayRight(self):
+        self.command(VFD_CURSORSHIFT | VFD_DISPLAYMOVE | VFD_MOVERIGHT)
+
+    #This will 'right justify' text from the cursor
+    def autoscroll(self):
+       self._displaymode |= VFD_ENTRYSHIFTINCREMENT
+       self.command(VFD_ENTRYMODESET | self._displaymode)
+
+    #This will 'left justify' text from the cursor
+    def noAutoscroll(self):
+      self._displaymode &= ~VFD_ENTRYSHIFTINCREMENT
+      self.command(VFD_ENTRYMODESET | self._displaymode)
+

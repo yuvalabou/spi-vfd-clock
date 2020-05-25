@@ -11,7 +11,7 @@ please note that since the NanoPi does not have an RTC it needs to access the in
 
 ## Notable features:
 
- - python 3.8 only
+ - python 3 only
  - VFD lib is separeted from the main app so you can use it individually in your own design! just import it and you good to go.
 
 ## Installation:
@@ -33,8 +33,11 @@ cd spi-vfd-clock
 ```
 python3 clock.py
 ```
-for running in the background just add '&'
+for running in the background just add '&',
 please note the process id so you could kill it later when needed.
 ```
 python3 clock.py &
 ```
+---
+If you find this repo any useful please consider supporting me so I can keep learning and come up with even better stuff!
+<a href="https://www.buymeacoffee.com/HMa8m26" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
