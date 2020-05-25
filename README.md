@@ -39,6 +39,4 @@ please note the process id so you could kill it later when needed.
 python3 clock.py &
 ```
 ---
-[![Buy me a coffee][buymeacoffee-shield]][buymeacoffee]
-[buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
-[buymeacoffee]: https://www.buymeacoffee.com/HMa8m26
+[![Buy me a coffee][buymeacoffee-shield]](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg)[buymeacoffee](https://www.buymeacoffee.com/HMa8m26)
