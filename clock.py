@@ -10,30 +10,36 @@ import psutil
 vfd = VFD(0,0)
 displaySize = 20
 
-print("<=== Clock v0.3 ===>")
+print("<=== Clock v0.4 ===>")
 
 vfd.setCursor(0, 0)
-welcome = "<=== Clock v0.3 ===>"
+welcome = "<=== Clock v0.4 ===>"
 vfd.text(welcome)
 sleep(2)
 
 print("<==== Starting Clock ====>")
 
+def clock():
+    now = datetime.datetime.now()
+    return now.strftime("%H:%M:%S")
+
+def cpu_state():
+    cpu_temperature = psutil.sensors_temperatures()['cpu-thermal'][0].current
+    return f'{int(psutil.cpu_freq().current)} MHz {round(cpu_temperature, 1)} °C'
+
 try:
     vfd.home()
     while True:
-        # Constants to update every loop
-        now = datetime.datetime.now()
-        clock = (now.strftime("%H:%M:%S"))
-        cpu_temperature = psutil.sensors_temperatures()['cpu-thermal'][0].current
-        cpu_state = str(int(psutil.cpu_freq().current)) + " MHz" + " " + str(round(cpu_temperature, 1)) + "°C"
+        # Get data
+        clock()
+        cpu_state()
 
         # Display data
-        vfd.text(clock.center(displaySize))
-        vfd.setCursor(0, 1)
-        vfd.text(cpu_state.center(displaySize))
-        sleep(0.1)
         vfd.home()
+        vfd.text(clock().center(displaySize))
+        vfd.setCursor(0, 1)
+        vfd.text(cpu_state().center(displaySize))
+        sleep(1)
 finally:
     # Clear screen on exit
     vfd.clear()
