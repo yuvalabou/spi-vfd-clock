@@ -7,7 +7,7 @@ Since the display is using 3 wire SPI and the Pi is using 4 an extra step is nee
 
 The VFD library is a mishmash between [smbaker](https://github.com/sbelectronics) library and the library used by bob [thisoldgeek](https://github.com/thisoldgeek) in his [RPi-boombox](https://github.com/thisoldgeek/RPi-boombox).
 
-please note that since the NanoPi does not have an RTC it needs to access the internet to update it's internal time.
+Please note that since the NanoPi does not have an RTC it needs to access the internet to update it's internal time.
 
 ## Notable features:
 
@@ -16,11 +16,11 @@ please note that since the NanoPi does not have an RTC it needs to access the in
 
 ## Installation:
 
-Configure your Pi SPI interface (May vary depends on manufacturer and OS) and reboot.
+Configure your Pi SPI interface (Instructions may vary depends on manufacturer and OS), and reboot.
 
 ```
 sudo apt-get update
-sudo apt-get install -y python python-dev python-pip
+sudo apt-get install -y python3 python-dev python-pip
 pip3 install spidev
 pip3 install psutil
 

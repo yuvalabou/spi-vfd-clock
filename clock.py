@@ -7,13 +7,13 @@ import datetime
 import psutil
 
 # Initiate the display
-vfd = VFD(0,0)
+vfd = VFD(0, 0)
 displaySize = 20
 
-print("<=== Clock v0.4 ===>")
+print("<=== Clock v0.9 ===>")
 
 vfd.setCursor(0, 0)
-welcome = "<=== Clock v0.4 ===>"
+welcome = "<=== Clock v0.9 ===>"
 vfd.text(welcome)
 sleep(2)
 
@@ -25,21 +25,22 @@ def clock():
 
 def cpu_state():
     cpu_temperature = psutil.sensors_temperatures()['cpu-thermal'][0].current
-    return f'{int(psutil.cpu_freq().current)} MHz {round(cpu_temperature, 1)} °C'
+    return f'{int(psutil.cpu_freq().current)} MHz {cpu_temperature:.1f} °C'
 
 try:
-    vfd.home()
     while True:
-        # Get data
-        clock()
-        cpu_state()
-
-        # Display data
         vfd.home()
         vfd.text(clock().center(displaySize))
         vfd.setCursor(0, 1)
         vfd.text(cpu_state().center(displaySize))
-        sleep(1)
+        sleep(0.5)
+
+except KeyboardInterrupt:
+    print("Stopping..")
+    vfd.text("User interrupted".center(displaySize))
+    sleep(3)
+    vfd.clear()
+
 finally:
     # Clear screen on exit
     vfd.clear()
