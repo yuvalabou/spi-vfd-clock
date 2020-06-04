@@ -58,8 +58,6 @@ class VFD:
         self.spi.open(spi_num, spi_ce)
         self.spi.mode = 3
         self.spi.max_speed_hz = 500000
-        self.setDisplay(True, False, False)
-        self.setDirection(True, False)
 
     def write(self, data, rs):
         if rs:
@@ -119,4 +117,3 @@ class VFD:
     def noAutoscroll(self):
       self._displaymode &= ~VFD_ENTRYSHIFTINCREMENT
       self.command(VFD_ENTRYMODESET | self._displaymode)
-
