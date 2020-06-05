@@ -9,14 +9,14 @@ import psutil
 # Initiate the display
 vfd = VFD(0, 0)
 
-print("<=== Clock v0.9 ===>")
+print("<--- Clock v0.92 --->")
 
 vfd.home()
-welcome = "<=== Clock v0.9 ===>"
+welcome = "<--- Clock v0.92 --->"
 vfd.text(welcome)
 sleep(2)
 
-print("<==== Starting Clock ====>")
+print("Starting Clock")
 
 def clock():
     now = datetime.datetime.now()
@@ -37,11 +37,10 @@ def net_speed():
     sleep(0.1)
     tx2 = get_bytes('tx')
     rx2 = get_bytes('rx')
-
     tx_speed = ((tx2 - tx1) / 1000000.0) * 10
-    rx_speed = ((rx2 - rx1) / 1000000.0 * 10)
+    rx_speed = ((rx2 - rx1) / 1000000.0) * 10
 
-    return f'TX:{tx_speed:.3f}, RX:{rx_speed:.3f}'
+    return f'TX:{tx_speed:.3f} RX:{rx_speed:.3f}'
 
 try:
     while True:
@@ -51,7 +50,7 @@ try:
         vfd.text(cpu_state().center(COLS))
         vfd.setCursor(0, 2)
         vfd.text(net_speed().center(COLS))
-        sleep(0.25)
+        sleep(0.5)
 
 except KeyboardInterrupt:
     print("Stopping..")
@@ -59,7 +58,7 @@ except KeyboardInterrupt:
     vfd.text("User interrupted".center(COLS))
     sleep(3)
     vfd.clear()
+    print("Stopped")
 
 finally:
-    # Clear screen on exit
     vfd.clear()
