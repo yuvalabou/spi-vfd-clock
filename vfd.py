@@ -110,10 +110,10 @@ class VFD:
 
     #This will 'right justify' text from the cursor
     def autoscroll(self):
-       self._displaymode |= VFD_ENTRYSHIFTINCREMENT
-       self.command(VFD_ENTRYMODESET | self._displaymode)
+        self._displaymode |= VFD_ENTRYSHIFTINCREMENT
+        self.command(VFD_ENTRYMODESET | self._displaymode)
 
     #This will 'left justify' text from the cursor
     def noAutoscroll(self):
-      self._displaymode &= ~VFD_ENTRYSHIFTINCREMENT
-      self.command(VFD_ENTRYMODESET | self._displaymode)
+        self._displaymode &= ~VFD_ENTRYSHIFTINCREMENT
+        self.command(VFD_ENTRYMODESET | self._displaymode)
