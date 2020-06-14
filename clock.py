@@ -28,7 +28,7 @@ def cpu_state():
 
 def get_bytes(t, iface='eth0'):
     with open('/sys/class/net/' + iface + '/statistics/' + t + '_bytes', 'r') as f:
-        data = f.read();
+        data = f.read()
         return int(data)
 
 def net_speed():
