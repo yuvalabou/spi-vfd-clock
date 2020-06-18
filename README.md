@@ -1,4 +1,4 @@
-# VFD display clock Using a NanoPi NEO2 (But any SBC with Armbian and SPI Interface should work)
+# VFD display examples Using a NanoPi NEO2 (But any SBC with Armbian and SPI Interface should work)
 
 Display model: Noritake-Itron CU20045-UW5J
 Datasheet, Footprint (Eagle) and 3D model are available on my other repo - [Noritake VFD Display](https://github.com/yuvalabou/Eagle-Library/tree/master/Noritake_VFD)
@@ -21,8 +21,7 @@ Configure your Pi SPI interface (Instructions may vary depends on manufacturer a
 ```
 sudo apt-get update
 sudo apt-get install -y python3 python-dev python-pip
-pip3 install spidev
-pip3 install psutil
+pip3 install spidev psutil urllib2
 
 git clone https://github.com/yuvalabou/spi-vfd-clock
 cd spi-vfd-clock
@@ -33,10 +32,18 @@ cd spi-vfd-clock
 ```
 python3 clock.py
 ```
-for running in the background just add '&',
+***Run the script in the background***
 please note the process id so you could kill it later when needed.
 ```
 python3 clock.py &
 ```
+***Run your script at boot***
+```
+sudo nano /etc/rc.local
+#add this line with a path to your script. Don't forget the '&' symbol
+python3 /path/to/spi-vfd-clock/clock.py &
+```
+
+## For running the PiHole app instructions are obviously the same, Just change the app name.
 ---
 <a href="https://www.buymeacoffee.com/HMa8m26" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
