@@ -5,11 +5,9 @@ from time import sleep
 from vfd import VFD, COLS
 import datetime
 import psutil
-import socket
 
 vfd = VFD(0, 0)
 welcome = "Starting Clock"
-ip_address = str(socket.gethostbyname(socket.gethostname()))
 
 print(welcome)
 vfd.home()

@@ -6,7 +6,7 @@ from vfd import VFD, COLS
 import psutil
 import socket
 import json
-import urllib2
+from urllib.request import urlopen
 
 vfd = VFD(0, 0)
 welcome = "PiHole Monitor"
@@ -14,6 +14,7 @@ ip_address = str(socket.gethostbyname(socket.gethostname()))
 url = ("http://" + ip_address + "/admin/api.php")
 
 print(welcome)
+print(ip_address)
 vfd.home()
 vfd.text(welcome.center(COLS))
 vfd.setCursor(0, 1)
@@ -41,11 +42,12 @@ def net_speed():
 
 try:
     while True:
-        data = json.load(urllib2.urlopen(url))
+        data = json.load(urlopen(url))
         blocked = data['ads_blocked_today']
         percent = data['ads_percentage_today']
         queries = data['dns_queries_today']
         domains = data['domains_being_blocked']
+        print("Blocked" + str(blocked) + "," + "Percent" + str(percent))
         vfd.home()
         vfd.text(cpu_state().center(COLS))
         vfd.setCursor(0, 1)

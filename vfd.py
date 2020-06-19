@@ -89,31 +89,28 @@ class VFD:
         self.command(VFD_SETDDRAMADDR | (col + row_offsets[row]) )
         sleep(VFD_SLEEPTIME)
 
-    def display(self, _displaycontrol): 
-        _displaycontrol |=  self.VFD_DISPLAYON 
-        self.command(VFD_DISPLAYCONTROL | _displaycontrol) 
+ #   def display(self, _displaycontrol): 
+ #       _displaycontrol |=  self.VFD_DISPLAYON 
+ #       self.command(VFD_DISPLAYCONTROL | _displaycontrol) 
 
-    def blink_on(self):
-        _displaycontrol =  VFD_DISPLAYON | VFD_CURSORON | VFD_BLINKON
-        self.display(_displaycontrol)
+ #   def blink_on(self):
+ #       _displaycontrol =  VFD_DISPLAYON | VFD_CURSORON | VFD_BLINKON
+ #       self.display(_displaycontrol)
 
-    def blink_off(self):
-        _displaycontrol = VFD_DISPLAYON | VFD_CURSOROFF | VFD_BLINKOFF
-        self.display(_displaycontrol)
+ #   def blink_off(self):
+ #       _displaycontrol = VFD_DISPLAYON | VFD_CURSOROFF | VFD_BLINKOFF
+ #       self.display(_displaycontrol)
 
-    #These commands scroll the display without changing the RAM
-    def scrollDisplayLeft(self):
-        self.command(VFD_CURSORSHIFT | VFD_DISPLAYMOVE | VFD_MOVELEFT)
+#    def scrollDisplayLeft(self):
+#        self.command(VFD_CURSORSHIFT | VFD_DISPLAYMOVE | VFD_MOVELEFT)
 
-    def scrollDisplayRight(self):
-        self.command(VFD_CURSORSHIFT | VFD_DISPLAYMOVE | VFD_MOVERIGHT)
+#    def scrollDisplayRight(self):
+#        self.command(VFD_CURSORSHIFT | VFD_DISPLAYMOVE | VFD_MOVERIGHT)
 
-    #This will 'right justify' text from the cursor
-    def autoscroll(self):
-        self._displaymode |= VFD_ENTRYSHIFTINCREMENT
-        self.command(VFD_ENTRYMODESET | self._displaymode)
+#    def autoscroll(self):
+#        self._displaymode |= VFD_ENTRYSHIFTINCREMENT
+#        self.command(VFD_ENTRYMODESET | self._displaymode)
 
-    #This will 'left justify' text from the cursor
-    def noAutoscroll(self):
-        self._displaymode &= ~VFD_ENTRYSHIFTINCREMENT
-        self.command(VFD_ENTRYMODESET | self._displaymode)
+#    def noAutoscroll(self):
+#        self._displaymode &= ~VFD_ENTRYSHIFTINCREMENT
+#        self.command(VFD_ENTRYMODESET | self._displaymode)
