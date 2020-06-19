@@ -7,12 +7,23 @@ Since the display is using 3 wire SPI and the Pi is using 4 an extra step is nee
 
 The VFD library is a mishmash between [smbaker](https://github.com/sbelectronics) library and the library used by bob [thisoldgeek](https://github.com/thisoldgeek) in his [RPi-boombox](https://github.com/thisoldgeek/RPi-boombox).
 
+For the PiHole monitor i'm using an altered code from [bradgillap](https://github.com/bradgillap) in his super simple code in [I2C LCD Display](https://github.com/bradgillap/I2C-LCD-Display).
+
 Please note that since the NanoPi does not have an RTC it needs to access the internet to update it's internal time.
+
+---
+
+## Apps
+
+ - PiHole monitor
+ - Simple clock with system stats
 
 ## Notable features:
 
  - python 3 only
  - VFD lib is separeted from the main app so you can use it individually in your own design! just import it and you good to go.
+
+---
 
 ## Installation:
 
@@ -21,7 +32,7 @@ Configure your Pi SPI interface (Instructions may vary depends on manufacturer a
 ```
 sudo apt-get update
 sudo apt-get install -y python3 python-dev python-pip
-pip3 install spidev psutil urllib2
+pip3 install spidev psutil urllib
 
 git clone https://github.com/yuvalabou/spi-vfd-clock
 cd spi-vfd-clock
