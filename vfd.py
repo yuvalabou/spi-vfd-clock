@@ -1,7 +1,7 @@
 import spidev
 from time import sleep
 
-# data
+# data about the display
 COLS = 20
 ROWS = 4
 VFD_SLEEPTIME = 0.005
@@ -60,6 +60,7 @@ class VFD:
         self.spi.max_speed_hz = 500000
 
     def write(self, data, rs):
+        """ Send data """
         if rs:
             self.spi.writebytes([VFD_SPIDATA, data])
         else:
@@ -70,18 +71,22 @@ class VFD:
         self.write(char, False)
 
     def text(self, strings):
+        """ Write text """
         for char in strings:
             self.write(ord(char), True)
 
     def home(self):
+        """ Home the cursor """
         self.command(VFD_RETURNHOME)
         sleep(VFD_SLEEPTIME)
 
     def clear(self):
+        """ Clear the display """
         self.command(VFD_CLEARDISPLAY)
         sleep(VFD_SLEEPTIME)
 
     def setCursor(self, col, row):
+        """ Set the cursor to specific cell """
         _numlines = ROWS
         row_offsets = [0x00, 0x40, 0x14, 0x54]
         if row > _numlines:

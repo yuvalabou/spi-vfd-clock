@@ -14,15 +14,18 @@ ip_address = str(socket.gethostbyname(socket.gethostname()))
 url = ("http://" + ip_address + "/admin/api.php")
 
 def cpu_state():
+    """ Get CPU data """
     cpu_temp = psutil.sensors_temperatures()['cpu-thermal'][0].current
     return f'{int(psutil.cpu_freq().current)} MHz {cpu_temp:.1f} C'
 
 def get_bytes(t, iface='eth0'):
+    """ Get raw network speed """
     with open('/sys/class/net/' + iface + '/statistics/' + t + '_bytes', 'r') as f:
         data = f.read()
         return int(data)
 
 def net_speed():
+    """ Calculate live network speed and provide readable value """
     tx1 = get_bytes('tx')
     rx1 = get_bytes('rx')
     sleep(1)
