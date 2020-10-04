@@ -1,4 +1,4 @@
-# VFD display examples Using Python
+# VFD display examples using Python
 
 _Here I am using NanoPi NEO2, But any SBC with Armbian and SPI Interface should work_
 
