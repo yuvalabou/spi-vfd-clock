@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 import json
-import psutil
 import socket
 from time import sleep
-from vfd import VFD, COLS
 from urllib.request import urlopen
+
+import psutil
+
+from vfd import COLS, VFD
 
 vfd = VFD(0, 0)
 welcome = "PiHole Monitor"

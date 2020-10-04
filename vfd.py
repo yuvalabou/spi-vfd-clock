@@ -1,6 +1,7 @@
 
-import spidev
 from time import sleep
+
+import spidev
 
 # data about the display
 COLS = 20
