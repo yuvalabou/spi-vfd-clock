@@ -1,30 +1,29 @@
 #!/usr/bin/env python3
 
-import spidev
-from time import sleep
-from vfd import VFD, COLS
+import json
 import psutil
 import socket
-import json
+from time import sleep
+from vfd import VFD, COLS
 from urllib.request import urlopen
 
 vfd = VFD(0, 0)
 welcome = "PiHole Monitor"
-ip_address = str(socket.gethostbyname(socket.gethostname()))
-url = ("http://" + ip_address + "/admin/api.php")
+HOST = str(socket.gethostbyname(socket.gethostname()))
+URL = ("http://" + HOST + "/admin/api.php")
 
-def cpu_state():
+def cpu_state() -> str:
     """ Get CPU data """
     cpu_temp = psutil.sensors_temperatures()['cpu-thermal'][0].current
     return f'{int(psutil.cpu_freq().current)} MHz {cpu_temp:.1f} C'
 
-def get_bytes(t, iface='eth0'):
+def get_bytes(t, iface='eth0') -> int:
     """ Get raw network speed """
     with open('/sys/class/net/' + iface + '/statistics/' + t + '_bytes', 'r') as f:
         data = f.read()
         return int(data)
 
-def net_speed():
+def net_speed() -> str:
     """ Calculate live network speed and provide readable value """
     tx1 = get_bytes('tx')
     rx1 = get_bytes('rx')
@@ -37,17 +36,14 @@ def net_speed():
 
 def main():
 
-    print(welcome)
-    print(ip_address)
     vfd.home()
     vfd.text(welcome.center(COLS))
     vfd.setCursor(0, 1)
-    vfd.text('IP:' + ip_address)
+    vfd.text('IP:' + HOST)
     sleep(3)
-    
     try:
         while True:
-            data = json.load(urlopen(url))
+            data = json.load(urlopen(URL))
             blocked = data['ads_blocked_today']
             percent = data['ads_percentage_today']
             queries = data['dns_queries_today']
@@ -71,7 +67,6 @@ def main():
             vfd.setCursor(0, 3)
             vfd.text(net_speed().center(COLS))
             sleep(4)
-
     except KeyboardInterrupt:
         print("Stopping..")
         vfd.clear()
@@ -79,7 +74,6 @@ def main():
         sleep(2)
         vfd.clear()
         print("Stopped")
-
     finally:
         vfd.clear()
 

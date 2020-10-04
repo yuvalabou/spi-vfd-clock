@@ -1,3 +1,4 @@
+
 import spidev
 from time import sleep
 
@@ -52,6 +53,7 @@ VFD_5x8DOTS = 0x00
 VFD_SPICOMMAND = 0xF8
 VFD_SPIDATA = 0xFA
 
+
 class VFD:
     def __init__(self, spi_num, spi_ce):
         self.spi = spidev.SpiDev()
@@ -71,22 +73,21 @@ class VFD:
         self.write(char, False)
 
     def text(self, strings):
-        """ Write text """
         for char in strings:
             self.write(ord(char), True)
 
     def home(self):
-        """ Home the cursor """
+        """ Home cursor """
         self.command(VFD_RETURNHOME)
         sleep(VFD_SLEEPTIME)
 
     def clear(self):
-        """ Clear the display """
+        """ Clear display """
         self.command(VFD_CLEARDISPLAY)
         sleep(VFD_SLEEPTIME)
 
     def setCursor(self, col, row):
-        """ Set the cursor to specific cell """
+        """ Set cursor position """
         _numlines = ROWS
         row_offsets = [0x00, 0x40, 0x14, 0x54]
         if row > _numlines:
@@ -94,9 +95,9 @@ class VFD:
         self.command(VFD_SETDDRAMADDR | (col + row_offsets[row]) )
         sleep(VFD_SLEEPTIME)
 
-    def display(self, _displaycontrol): 
-        _displaycontrol |=  self.VFD_DISPLAYON 
-        self.command(VFD_DISPLAYCONTROL | _displaycontrol) 
+    def display(self, _displaycontrol):
+        _displaycontrol |=  self.VFD_DISPLAYON
+        self.command(VFD_DISPLAYCONTROL | _displaycontrol)
 
     def blink_on(self):
         _displaycontrol =  VFD_DISPLAYON | VFD_CURSORON | VFD_BLINKON
