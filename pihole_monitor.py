@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
-
-import spidev
-from time import sleep
-from vfd import VFD, COLS
-import psutil
-import socket
+"""PiHole monitor"""
 import json
+import socket
+from time import sleep
 from urllib.request import urlopen
+
+import psutil
+
+from vfd import COLS, VFD
 
 vfd = VFD(0, 0)
 welcome = "PiHole Monitor"
@@ -14,18 +14,18 @@ ip_address = str(socket.gethostbyname(socket.gethostname()))
 url = ("http://" + ip_address + "/admin/api.php")
 
 def cpu_state():
-    """ Get CPU data """
+    """Get CPU data."""
     cpu_temp = psutil.sensors_temperatures()['cpu-thermal'][0].current
     return f'{int(psutil.cpu_freq().current)} MHz {cpu_temp:.1f} C'
 
 def get_bytes(t, iface='eth0'):
-    """ Get raw network speed """
+    """Get raw network speed."""
     with open('/sys/class/net/' + iface + '/statistics/' + t + '_bytes', 'r') as f:
         data = f.read()
         return int(data)
 
 def net_speed():
-    """ Calculate live network speed and provide readable value """
+    """Calculate live network speed and provide readable value."""
     tx1 = get_bytes('tx')
     rx1 = get_bytes('rx')
     sleep(1)
@@ -44,7 +44,7 @@ def main():
     vfd.setCursor(0, 1)
     vfd.text('IP:' + ip_address)
     sleep(3)
-    
+
     try:
         while True:
             data = json.load(urlopen(url))
