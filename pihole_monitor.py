@@ -10,8 +10,8 @@ from vfd import COLS, VFD
 
 vfd = VFD(0, 0)
 welcome = "PiHole Monitor"
-ip_address = str(socket.gethostbyname(socket.gethostname()))
-url = ("http://" + ip_address + "/admin/api.php")
+HOST = str(socket.gethostbyname(socket.gethostname()))
+URL = "http://" + HOST + "/admin/api.php"
 
 def cpu_state():
     """Get CPU data."""
@@ -29,49 +29,46 @@ def net_speed():
     tx1 = get_bytes('tx')
     rx1 = get_bytes('rx')
     sleep(1)
-    tx2 = get_bytes('tx')
-    rx2 = get_bytes('rx')
+    tx2 = get_bytes("tx")
+    rx2 = get_bytes("rx")
     tx_speed = (tx2 - tx1) / 1000000.0
     rx_speed = (rx2 - rx1) / 1000000.0
-    return f'TX:{tx_speed:.3f} RX:{rx_speed:.3f}'
+    return f"TX:{tx_speed:.3f} RX:{rx_speed:.3f}"
+
 
 def main():
 
-    print(welcome)
-    print(ip_address)
     vfd.home()
     vfd.text(welcome.center(COLS))
     vfd.setCursor(0, 1)
-    vfd.text('IP:' + ip_address)
+    vfd.text("IP:" + HOST)
     sleep(3)
-
     try:
         while True:
-            data = json.load(urlopen(url))
-            blocked = data['ads_blocked_today']
-            percent = data['ads_percentage_today']
-            queries = data['dns_queries_today']
-            domains = data['domains_being_blocked']
+            data = json.load(urlopen(URL))
+            blocked = data["ads_blocked_today"]
+            percent = data["ads_percentage_today"]
+            queries = data["dns_queries_today"]
+            domains = data["domains_being_blocked"]
             print("Blocked" + str(blocked) + "," + "Percent" + str(percent))
             vfd.home()
             vfd.text(cpu_state().center(COLS))
             vfd.setCursor(0, 1)
-            vfd.text('Blocked: ' + str(blocked))
+            vfd.text("Blocked: " + str(blocked))
             vfd.setCursor(0, 2)
-            vfd.text('Percent: ' + str(percent) + "%")
+            vfd.text("Percent: " + str(percent) + "%")
             vfd.setCursor(0, 3)
             vfd.text(net_speed().center(COLS))
             sleep(4)
             vfd.home()
             vfd.text(cpu_state().center(COLS))
             vfd.setCursor(0, 1)
-            vfd.text('Queries: ' + str(queries))
+            vfd.text("Queries: " + str(queries))
             vfd.setCursor(0, 2)
-            vfd.text('Domains: ' + str(domains))
+            vfd.text("Domains: " + str(domains))
             vfd.setCursor(0, 3)
             vfd.text(net_speed().center(COLS))
             sleep(4)
-
     except KeyboardInterrupt:
         print("Stopping..")
         vfd.clear()
@@ -79,9 +76,9 @@ def main():
         sleep(2)
         vfd.clear()
         print("Stopped")
-
     finally:
         vfd.clear()
+
 
 if __name__ == "__main__":
     main()

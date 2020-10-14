@@ -1,5 +1,6 @@
 """Clock"""
 from datetime import datetime
+
 from time import sleep
 
 import psutil
@@ -8,6 +9,7 @@ from vfd import COLS, VFD
 
 vfd = VFD(0, 0)
 welcome = "Starting Clock"
+
 
 def clock():
     """Get the time."""
@@ -25,7 +27,6 @@ def main():
     vfd.home()
     vfd.text(welcome.center(COLS))
     sleep(3)
-
     try:
         while True:
             vfd.home()
@@ -33,7 +34,6 @@ def main():
             vfd.setCursor(0, 1)
             vfd.text(cpu_state().center(COLS))
             sleep(0.5)
-
     except KeyboardInterrupt:
         print("Stopping..")
         vfd.clear()
@@ -41,9 +41,9 @@ def main():
         sleep(2)
         vfd.clear()
         print("Stopped")
-
     finally:
         vfd.clear()
+
 
 if __name__ == "__main__":
     main()

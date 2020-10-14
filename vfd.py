@@ -44,8 +44,8 @@ class VFD:
         _numlines = ROWS
         row_offsets = [0x00, 0x40, 0x14, 0x54]
         if row > _numlines:
-            row = _numlines-1
-        self.command(VFD_SETDDRAMADDR | (col + row_offsets[row]) )
+            row = _numlines - 1
+        self.command(VFD_SETDDRAMADDR | (col + row_offsets[row]))
         sleep(VFD_SLEEPTIME)
 
     def display(self, _displaycontrol):
@@ -53,7 +53,7 @@ class VFD:
         self.command(VFD_DISPLAYCONTROL | _displaycontrol)
 
     def blink_on(self):
-        _displaycontrol =  VFD_DISPLAYON | VFD_CURSORON | VFD_BLINKON
+        _displaycontrol = VFD_DISPLAYON | VFD_CURSORON | VFD_BLINKON
         self.display(_displaycontrol)
 
     def blink_off(self):

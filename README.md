@@ -1,4 +1,12 @@
-# VFD display examples Using a NanoPi NEO2 (But any SBC with Armbian and SPI Interface should work)
+# VFD display examples using Python
+
+_Here I am using NanoPi NEO2, But any SBC with Armbian and SPI Interface should work_
+
+<img src=
+    "https://github.com/yuvalabou/spi-vfd-clock/blob/master/Screenshot.jpg?raw=true"
+    width=500>
+
+## Hardware
 
 Display model: Noritake-Itron CU20045-UW5J
 Datasheet, Footprint (Eagle) and 3D model are available on my other repo - [Noritake VFD Display](https://github.com/yuvalabou/Eagle-Library/tree/master/Noritake_VFD)
@@ -15,21 +23,16 @@ Please note that since the NanoPi does not have an RTC it needs to access the in
 
 ## Apps
 
- - PiHole monitor
- - Simple clock with system stats
-
-## Notable features:
-
- - python 3 only
- - VFD lib is separeted from the main app so you can use it individually in your own design! just import it and you good to go.
+- PiHole monitor
+- Simple clock with system stats
 
 ---
 
-## Installation:
+## Installation
 
 Configure your Pi SPI interface (Instructions may vary depends on manufacturer and OS), and reboot.
 
-```
+```shell
 sudo apt-get update
 sudo apt-get install -y python3 python-dev python-pip
 pip3 install spidev psutil urllib
@@ -38,23 +41,29 @@ git clone https://github.com/yuvalabou/spi-vfd-clock
 cd spi-vfd-clock
 ```
 
-## Running the app:
+## Running the app
 
-```
+```shell
 python3 clock.py
 ```
+
 ***Run the script in the background***
 please note the process id so you could kill it later when needed.
-```
+
+```shell
 python3 clock.py &
 ```
+
 ***Run your script at boot***
-```
-sudo nano /etc/rc.local
-#add this line with a path to your script. Don't forget the '&' symbol
+
+Add this line to your /etc/rc.local file
+
+```shell
 python3 /path/to/spi-vfd-clock/clock.py &
 ```
 
-## For running the PiHole app instructions are obviously the same, Just change the app name.
+## For running the PiHole app, Just change the app name
+
 ---
+
 <a href="https://www.buymeacoffee.com/HMa8m26" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
