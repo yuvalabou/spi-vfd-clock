@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-import spidev
 from time import sleep
 from vfd import VFD, COLS
-import datetime
+from datetime import datetime
 import psutil
 
 vfd = VFD(0, 0)
@@ -11,7 +10,7 @@ welcome = "Starting Clock"
 
 def clock():
     """ Get the time """
-    now = datetime.datetime.now()
+    now = datetime.now()
     return now.strftime("%H:%M:%S")
 
 def cpu_state():
@@ -20,7 +19,7 @@ def cpu_state():
     return f'{int(psutil.cpu_freq().current)} MHz {cpu_temp:.1f} C'
 
 def main():
-    
+
     print(welcome)
     vfd.home()
     vfd.text(welcome.center(COLS))
