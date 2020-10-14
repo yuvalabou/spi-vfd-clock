@@ -1,6 +1,5 @@
 """Clock"""
 from datetime import datetime
-
 from time import sleep
 
 import psutil
@@ -11,12 +10,12 @@ vfd = VFD(0, 0)
 welcome = "Starting Clock"
 
 
-def clock():
+def clock() -> str:
     """Get the time."""
     now = datetime.now()
     return now.strftime("%H:%M:%S")
 
-def cpu_state():
+def cpu_state() -> str:
     """Get CPU data."""
     cpu_temp = psutil.sensors_temperatures()['cpu-thermal'][0].current
     return f'{int(psutil.cpu_freq().current)} MHz {cpu_temp:.1f} C'

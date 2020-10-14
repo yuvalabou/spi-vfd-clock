@@ -13,18 +13,18 @@ welcome = "PiHole Monitor"
 HOST = str(socket.gethostbyname(socket.gethostname()))
 URL = "http://" + HOST + "/admin/api.php"
 
-def cpu_state():
+def cpu_state() -> str:
     """Get CPU data."""
     cpu_temp = psutil.sensors_temperatures()['cpu-thermal'][0].current
     return f'{int(psutil.cpu_freq().current)} MHz {cpu_temp:.1f} C'
 
-def get_bytes(t, iface='eth0'):
+def get_bytes(t, iface='eth0') -> int:
     """Get raw network speed."""
     with open('/sys/class/net/' + iface + '/statistics/' + t + '_bytes', 'r') as f:
         data = f.read()
         return int(data)
 
-def net_speed():
+def net_speed() -> str:
     """Calculate live network speed and provide readable value."""
     tx1 = get_bytes('tx')
     rx1 = get_bytes('rx')
