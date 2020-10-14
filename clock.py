@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-from time import sleep
-from vfd import VFD, COLS
 from datetime import datetime
+from time import sleep
+
 import psutil
+
+from vfd import COLS, VFD
 
 vfd = VFD(0, 0)
 welcome = "Starting Clock"
